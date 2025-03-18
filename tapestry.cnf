@@ -1,0 +1,8 @@
+[server]
+name=TapestryMUSH
+port=1701
+max_clients=10
+
+[logging]
+log_level=INFO
+log_directory=../logs

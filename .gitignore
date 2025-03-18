@@ -12,3 +12,6 @@ tapestrymush
 *.o
 *.out
 *.exe
+
+# Ignore dev logs
+server.log
