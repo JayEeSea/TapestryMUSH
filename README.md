@@ -10,25 +10,46 @@ TapestryMUSH is a modern reimagining of classic PennMUSH servers, built in C++ w
 ## Getting Started
 
 ### Prerequisites
-- A C++ compiler (GCC/Clang/MinGW)
-- Git for version control
-- (Optional) CMake for build automation
+- A **C++ compiler** (GCC/Clang/MinGW)
+- **CMake** for build automation
+- **Git** for version control
 
 ### Installation
-Clone the repository:
-```
+#### 1.Clone the repository:
+```bash
 git clone https://github.com/YOUR_USERNAME/TapestryMUSH.git
 cd TapestryMUSH
 ```
 
-Build the project:
-```
-g++ -pthread src/main.cpp -o tapestrymush
+#### 2. Build the Project with CMake
+```bash
+mkdir build
+cd build
+cmake ..
+make
 ```
 
-Run the server:
-```
+#### 3. Run the Server
+```bash
 ./tapestrymush
+```
+
+#### 4. Connect to the server
+Using Telnet:
+```bash
+telnet localhost 4000
+```
+
+### Troubleshooting
+If `cmake ..` fails, ensure CMake is installed:
+```bash
+sudo apt install cmake -y
+```
+
+If `make` gives an error about missing `g++`, install it
+```bash
+sudo apt install g++ -y
+
 ```
 
 ## Contributing
