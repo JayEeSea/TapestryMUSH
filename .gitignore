@@ -17,4 +17,4 @@ tapestrymush
 server.log
 
 # Ignore other stuff
-.vscode
+.vscode/
