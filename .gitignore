@@ -15,3 +15,6 @@ tapestrymush
 
 # Ignore dev logs
 server.log
+
+# Ignore other stuff
+.vscode/
