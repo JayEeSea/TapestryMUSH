@@ -4,4 +4,11 @@ project(TapestryMUSH)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_executable(tapestrymush src/main.cpp)
+# Add all cpp files in the src directory to the SOURCES variable
+file(GLOB SOURCES "src/*.cpp")
+
+# Create executable
+add_executable(tapestrymush ${SOURCES})
+
+# Tell the compiler where to find header files
+target_include_directories(tapestrymush PRIVATE ${PROJECT_SOURCE_DIR}/hdrs)
