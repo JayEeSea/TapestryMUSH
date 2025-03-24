@@ -1,4 +1,5 @@
-#include serverfunc.h
+#include "constants.h"
+#include <netinet/in.h>
 
 // Main server function to start listening for client connections
 void start_server(int port, int max_clients) {

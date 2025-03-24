@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(TapestryMUSH)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Add all cpp files in the src directory to the SOURCES variable
