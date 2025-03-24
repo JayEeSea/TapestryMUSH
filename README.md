@@ -15,9 +15,9 @@ TapestryMUSH is a modern reimagining of classic PennMUSH servers, built in C++ w
 - **Git** for version control
 
 ### Installation
-#### 1.Clone the repository:
+#### 1. Clone the repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/TapestryMUSH.git
+git clone https://github.com/JayEeSea/TapestryMUSH.git
 cd TapestryMUSH
 ```
 
