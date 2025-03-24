@@ -17,68 +17,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-// Global configuration map to store key-value pairs from the config file
-std::map<std::string, std::string> config;
-
-// Function to load configuration from a file
-void load_config(const std::string& filename) {
-    std::ifstream file(filename);
-    if (!file) {
-        log(WARNING, "Config file not found, using defaults.");
-        return;
-    }
-
-    std::string line;
-    while (std::getline(file, line)) {
-        // Ignore comments, empty lines, and section headers (e.g., [server], [logging])
-        if (line.empty() || line[0] == '#' || line[0] == ';' || line[0] == '[') 
-            continue;
-
-        // Parse key-value pairs separated by '='
-        std::istringstream is_line(line);
-        std::string key, value;
-        if (std::getline(is_line, key, '=') && std::getline(is_line, value)) {
-            // Remove whitespace from key and value
-            key.erase(std::remove_if(key.begin(), key.end(), ::isspace), key.end());
-            value.erase(std::remove_if(value.begin(), value.end(), ::isspace), value.end());
-            if (!key.empty() && !value.empty()) {
-                config[key] = value; // Store the key-value pair in the config map
-                log(DEBUG, "Loaded config key [" + key + "] with value [" + value + "]");
-            } else {
-                log(WARNING, "Malformed config line: " + line);
-            }
-        }
-    }
-}
-
-// Function to detect the correct directory for the configuration file dynamically
-void load_config_from_root() {
-    char path[PATH_MAX];
-    if (getcwd(path, sizeof(path))) {
-        std::string full_path = std::string(path) + DEFAULT_CNF_FILE;
-        load_config(full_path); // Load the configuration file
-    } else {
-        log(ERROR, "Failed to determine current directory.");
-    }
-}
-
-// Global flag to indicate whether the server is running
-bool running = true;
-
-// Signal handler to gracefully shut down the server
-void signal_handler(int signal) {
-    log(INFO, "Signal received, shutting down server...");
-    running = false;
-}
-
-// Function to handle a single client connection
-void handle_client(int client_socket) {
-    log(INFO, "New client connected.");
-    std::string welcome_msg = "Welcome to " + get_config_value("name", "TapestryMUSH") + "!\n";
-    send(client_socket, welcome_msg.c_str(), welcome_msg.size(), 0); // Send a welcome message to the client
-    close(client_socket); // Close the client socket
-}
-
 // Main entry point of the program
 int main() {
     // Register signal handlers for graceful shutdown
