@@ -54,7 +54,8 @@ public class ClientSession
         if (parts.Length == 0)
             return;
 
-        var command = parts[0].ToLower();
+        var rawCommand = parts[0];
+        var command = rawCommand.ToLower();
 
         switch (command)
         {
@@ -94,6 +95,21 @@ public class ClientSession
 
                 await SendLineAsync($"Welcome back, {connectedPlayer.Username}!");
                 await _commandRouter.RouteAsync(this, "look");
+                break;
+
+            case "logout":
+                if (rawCommand == "LOGOUT")
+                {
+                    PlayerId = null;
+                    CurrentPlayer = null;
+
+                    await SendLineAsync("You have been logged out.");
+                    await SendLineAsync("Type 'connect <username> <password>' or 'create <username> <password>' or 'quit'.");
+                }
+                else
+                {
+                    await SendLineAsync("Unknown command. (Try HELP?)");
+                }
                 break;
 
             default:

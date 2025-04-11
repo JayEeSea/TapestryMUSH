@@ -27,7 +27,8 @@ public class SetCommand : ICommand
         }
 
         var target = parts[0].Replace("@set", "", StringComparison.OrdinalIgnoreCase).Trim();
-        var flagInput = parts[1].ToUpperInvariant();
+        var isRemoval = parts[1].StartsWith("!");
+        var flagInput = parts[1].TrimStart('!').ToUpperInvariant();
 
         var db = session.AccountService.DbContext;
         Player? targetPlayer = null;
@@ -83,18 +84,47 @@ public class SetCommand : ICommand
         var flagToSet = possibleMatches[0].ToUpperInvariant();
         var flags = targetPlayer.Flags;
 
-        if (flags.Contains(flagToSet))
+        if (isRemoval)
         {
-            await session.SendLineAsync($"{targetPlayer.Username} already has the {flagToSet} flag.");
-            return;
+            if (!flags.Contains(flagToSet))
+            {
+                await session.SendLineAsync($"{targetPlayer.Username} does not have the {flagToSet} flag.");
+                return;
+            }
+
+            // Special case: don't let non-wizards remove WIZARD or ROYALTY
+            if ((flagToSet == "WIZARD" || flagToSet == "ROYALTY") &&
+                !invoker.Flags.Contains("WIZARD"))
+            {
+                await session.SendLineAsync("Permission denied.");
+                return;
+            }
+
+            flags.Remove(flagToSet);
+            await session.SendLineAsync($"Flag {flagToSet} removed from {targetPlayer.Username} [#{targetPlayer.Id}].");
+        }
+        else
+        {
+            if (flags.Contains(flagToSet))
+            {
+                await session.SendLineAsync($"{targetPlayer.Username} already has the {flagToSet} flag.");
+                return;
+            }
+
+            // Only allow setting WIZARD or ROYALTY if the invoker is a wizard
+            if ((flagToSet == "WIZARD" || flagToSet == "ROYALTY") &&
+                !invoker.Flags.Contains("WIZARD"))
+            {
+                await session.SendLineAsync("Permission denied.");
+                return;
+            }
+
+            flags.Add(flagToSet);
+            await session.SendLineAsync($"Flag {flagToSet} set on {targetPlayer.Username} [#{targetPlayer.Id}].");
         }
 
-        flags.Add(flagToSet);
         targetPlayer.Flags = flags;
 
         await db.SaveChangesAsync();
-
-        await session.SendLineAsync($"Flag {flagToSet} set on {targetPlayer.Username} [#{targetPlayer.Id}].");
-
     }
 }
