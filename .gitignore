@@ -1,0 +1,61 @@
+# Build output
+bin/
+obj/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# VS Code and Rider
+.vscode/
+.idea/
+
+# Visual Studio cache
+.vs/
+
+# Dotnet CLI artifacts
+*.dbmdl
+*.bak
+*.log
+*.pdb
+
+# EF Core Migrations intermediate files
+Migrations/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Application settings
+appsettings.Development.json
+appsettings.Local.json
+
+# Optional: exclude all secrets
+secrets.json
+*.secrets.json
+
+# Test results
+TestResults/
+*.coverage
+*.coveragexml
+*.testlog
+
+# Node/npm
+node_modules/
+npm-debug.log*
+
+# NuGet packages
+packages/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# TapestryMUSH-specific runtime folders
+logs/
+dump/
+cache/
