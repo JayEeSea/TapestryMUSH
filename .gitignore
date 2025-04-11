@@ -33,6 +33,7 @@ desktop.ini
 # Application settings
 appsettings.Development.json
 appsettings.Local.json
+appsettings.json
 
 # Optional: exclude all secrets
 secrets.json
