@@ -1,6 +1,6 @@
 ﻿using System.Net.Sockets;
 using System.Text;
-using TapestryMUSH.Core.Commands;
+using TapestryMUSH.Core.Commands.CommandRegistry;
 using TapestryMUSH.Core.Services;
 using TapestryMUSH.Core.Session;
 using TapestryMUSH.Data.Models;

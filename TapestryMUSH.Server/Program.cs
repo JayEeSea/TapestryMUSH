@@ -6,10 +6,11 @@ using TapestryMUSH.Data;
 using TapestryMUSH.Core;
 using TapestryMUSH.Core.Services;
 using System.Windows.Input;
-using TapestryMUSH.Core.Commands;
+
 using TapestryMUSH.Server.Commands;
 using ICommand = TapestryMUSH.Core.Commands.ICommand;
 using TapestryMUSH.Data.Models;
+using TapestryMUSH.Core.Commands.CommandRegistry;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration((context, config) =>
@@ -48,20 +49,8 @@ if (!dbContext.Rooms.Any())
     await dbContext.SaveChangesAsync();
 }
 
-var commandRouter = new CommandRouter(new ICommand[]
-{
-    new LookCommand(),
-    new SayCommand(),
-    new PoseCommand(),
-    new GoCommand(),
-    new DigCommand(),
-    new OpenCommand(),
-    new TeleportCommand(),
-    new SetCommand(),
-    new BriefCommand(),
-    new ShutdownCommand(lifetime),
-    new ShutdownCommand(scope.ServiceProvider.GetRequiredService<IHostApplicationLifetime>())
-});
+var commandRouter = CommandRegistry.BuildRouter();
+commandRouter.Register(new ShutdownCommand(lifetime));
 
 // Pass it into the Telnet server
 var telnetServer = new TelnetServer(4201, accountService, commandRouter);

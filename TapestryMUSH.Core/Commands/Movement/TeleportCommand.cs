@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using static TapestryMUSH.Data.Models.Player;
 
-namespace TapestryMUSH.Core.Commands;
+namespace TapestryMUSH.Core.Commands.Movement;
 
 public class TeleportCommand : ICommand
 {

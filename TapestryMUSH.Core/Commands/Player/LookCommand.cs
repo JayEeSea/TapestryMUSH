@@ -1,8 +1,7 @@
-﻿using TapestryMUSH.Core;
-using TapestryMUSH.Core.Session;
+﻿using TapestryMUSH.Core.Session;
 using static TapestryMUSH.Data.Models.Player;
 
-namespace TapestryMUSH.Core.Commands;
+namespace TapestryMUSH.Core.Commands.Player;
 
 public class LookCommand : ICommand
 {
@@ -25,7 +24,7 @@ public class LookCommand : ICommand
             return;
         }
 
-        var showDbref = (player.Flags.Contains("WIZARD") || player.Flags.Contains("ROYALTY"));
+        var showDbref = player.Flags.Contains("WIZARD") || player.Flags.Contains("ROYALTY");
         var roomDisplay = showDbref
             ? $"{player.CurrentRoom.Name} [#{player.CurrentRoom.Id}]"
             : player.CurrentRoom.Name;

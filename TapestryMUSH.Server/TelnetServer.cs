@@ -2,7 +2,7 @@
 using System.Net;
 using TapestryMUSH.Core.Services;
 using TapestryMUSH.Core.Session;
-using TapestryMUSH.Core.Commands;
+using TapestryMUSH.Core.Commands.CommandRegistry;
 
 public class TelnetServer
 {

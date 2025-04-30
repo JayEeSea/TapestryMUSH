@@ -1,7 +1,7 @@
 ﻿using TapestryMUSH.Core.Session;
 using Microsoft.EntityFrameworkCore;
 
-namespace TapestryMUSH.Core.Commands;
+namespace TapestryMUSH.Core.Commands.Building;
 
 public class OpenCommand : ICommand
 {

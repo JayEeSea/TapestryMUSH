@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TapestryMUSH.Data.Models;
 using TapestryMUSH.Shared;
 
-namespace TapestryMUSH.Core.Commands;
+namespace TapestryMUSH.Core.Commands.Admin;
 
 public class SetCommand : ICommand
 {
@@ -31,7 +31,7 @@ public class SetCommand : ICommand
         var flagInput = parts[1].TrimStart('!').ToUpperInvariant();
 
         var db = session.AccountService.DbContext;
-        Player? targetPlayer = null;
+        TapestryMUSH.Data.Models.Player? targetPlayer = null;
 
         if (target.Equals("me", StringComparison.OrdinalIgnoreCase))
         {

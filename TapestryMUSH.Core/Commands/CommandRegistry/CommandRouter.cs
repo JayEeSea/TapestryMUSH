@@ -1,9 +1,8 @@
 ﻿using System.Collections.Concurrent;
 using TapestryMUSH.Core.Session;
-using TapestryMUSH.Core;
 using Microsoft.EntityFrameworkCore;
 
-namespace TapestryMUSH.Core.Commands;
+namespace TapestryMUSH.Core.Commands.CommandRegistry;
 
 public class CommandRouter
 {
@@ -77,5 +76,15 @@ public class CommandRouter
         }
 
         await session.SendLineAsync("Huh? (Type \"help\" for help.)");
+    }
+
+    public void Register(ICommand command)
+    {
+        _commandMap[command.Name] = command;
+
+        foreach (var alias in command.Aliases)
+        {
+            _commandMap[alias] = command;
+        }
     }
 }

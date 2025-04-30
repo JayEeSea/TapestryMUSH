@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TapestryMUSH.Data.Models;
 
-namespace TapestryMUSH.Core.Commands;
+namespace TapestryMUSH.Core.Commands.Movement;
 
 public class GoCommand : ICommand
 {
